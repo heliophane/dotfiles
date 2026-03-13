@@ -1,0 +1,5 @@
+[user]
+	name = Alex
+	email = alexsterling@mailbox.org
+[init]
+	defaultBranch = main
