@@ -8,9 +8,9 @@ alias fetch="fastfetch"
 alias yt="yt-dlp --add-metadata -i"
 
 #yt-dlp videos
-alias ytv="yt -P '~/Movies' -f bestvideo"
-alias playlist="yt -P '~/Movies' -f 'bestvideo+bestaudio/best' -o 'Playlists/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'"
-alias ytchannel="yt -P '~/Movies' -f 'bestvideo+bestaudio/best' -o 'Channels/%(uploader)s/%(title)s.%(ext)s'"
+alias ytv="yt -P '~/Movies' -f 'bestvideo+bestaudio/best' -o '%(extractor_key)s/%(title)s [%(id)s].%(ext)s'"
+alias ytchannel="yt -P '~/Movies' -f 'bestvideo+bestaudio/best' -o '%(extractor_key)s/Channels/%(uploader)s/%(title)s.%(ext)s'"
+alias playlist="yt -P '~/Movies' -f 'bestvideo+bestaudio/best' -o '%(extractor_key)s/Playlists/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'"
 
 #yt-dlp audio
 alias yta="yt -P '~/Downloads' -x -f bestaudio/best"
