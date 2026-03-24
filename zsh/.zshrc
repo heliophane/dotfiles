@@ -30,3 +30,7 @@ alias playlist="yt -P '$MOVIE_DIR' -f 'bestvideo+bestaudio/best' -o '%(extractor
 alias yta="yt -P '$HOME/Downloads' -x -f bestaudio/best"
 alias ytmp3="yt-dlp -P '$HOME/Downloads' -x --audio-format mp3 --audio-quality 0 --embed-thumbnail --add-metadata"
 alias playlist3="yt-dlp -P '$HOME/Downloads' -x --audio-format mp3 --audio-quality 0 --embed-thumbnail --add-metadata -o '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' "
+
+#completions and highlights
+source $SUGGESTIONS 2>/dev/null
+source $HIGHLIGHTS 2>/dev/null
