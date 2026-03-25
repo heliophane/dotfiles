@@ -18,6 +18,9 @@ PROMPT="%n@%m %1~ %# "
 alias fetch="fastfetch"
 alias reload="source ~/.zshrc"
 
+#ffmpeg image conversion
+alias iconvert="ffmpeg -i"
+
 #yt-dlp
 alias yt="yt-dlp --add-metadata -i"
 
