@@ -2,20 +2,11 @@
 if [[ "$(uname)" == "Darwin" ]]; then
     export MOVIE_DIR="$HOME/Movies"
 
-    alias tree="eza --tree --icons --group-directories-first"
-
     SUGGESTIONS="$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
     HIGHLIGHTS="$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 elif [[ "$(uname)" == "Linux" ]]; then
     export MOVIE_DIR="$HOME/Videos"
-    
-    # Check if eza is installed on Linux, otherwise fallback to your sed version
-    if command -v eza >/dev/null 2>&1; then
-        alias tree="eza --tree --icons --group-directories-first"
-    else
-        alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
-    fi
 
     SUGGESTIONS="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
     HIGHLIGHTS="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
@@ -32,12 +23,6 @@ zstyle ':completion:*' menu select
 #aliases
 alias fetch="fastfetch"
 alias reload="source ~/.zshrc"
-
-if command -v eza >/dev/null 2>&1; then
-    alias ls="eza --icons --group-directories-first"
-    alias ll="eza -lh --icons --group-directories-first"
-    alias la="eza -a --icons --group-directories-first"
-fi
 
 #ffmpeg image conversion
 alias iconvert="ffmpeg -i"
@@ -58,3 +43,4 @@ alias playlist3="yt-dlp -P '$HOME/Downloads' -x --audio-format mp3 --audio-quali
 #completions and highlights
 source $SUGGESTIONS 2>/dev/null
 source $HIGHLIGHTS 2>/dev/null
+export PATH="$HOME/.local/bin:$PATH"
