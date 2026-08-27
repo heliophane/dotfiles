@@ -3,3 +3,5 @@
 	email = alexsterling@mailbox.org
 [init]
 	defaultBranch = main
+[core]
+	excludesfile = /Users/alex/.gitignore_global
