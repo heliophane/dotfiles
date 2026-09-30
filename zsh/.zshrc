@@ -50,7 +50,7 @@ else
     HOST_COLOR="green"
 fi
 
-PROMPT="%(!.%F{red}.%F{$HOST_COLOR})%n@%m%f %F{blue}%1~%f %# "
+PROMPT="%B%(!.%F{red}.%F{$HOST_COLOR})%n@%m%f %F{blue}%1~%f %#%b "
 
 autoload -Uz compinit
 compinit -C
