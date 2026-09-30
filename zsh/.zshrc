@@ -1,19 +1,20 @@
 # vacation target date (Format: YYYY-MM-DD)
 VACATION_DATE="2026-10-19"
-CURRENT_EPOCH=$(date +%s)
+TODAY=$(date +%Y-%m-%d)
 
-# Platform detection
+# platform detection
 if [[ "$(uname)" == "Darwin" ]]; then
     export MOVIE_DIR="$HOME/Movies"
 
-    local brew_prefix="/opt/homebrew"
+    brew_prefix="/opt/homebrew"
     [[ -d "$brew_prefix" ]] || brew_prefix="/usr/local"
 
     SUGGESTIONS="$brew_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
     HIGHLIGHTS="$brew_prefix/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
     # macOS (BSD) date conversion
-    TARGET_EPOCH=$(date -j -f "%Y-%m-%d" "$VACATION_DATE" "+%s" 2>/dev/null)
+    CURRENT_EPOCH=$(date -j -f "%Y-%m-%d %H:%M:%S" "$TODAY 00:00:00" "+%s" 2>/dev/null)
+    TARGET_EPOCH=$(date -j -f "%Y-%m-%d %H:%M:%S" "$VACATION_DATE 00:00:00" "+%s" 2>/dev/null)
 
 elif [[ "$(uname)" == "Linux" ]]; then
     export MOVIE_DIR="$HOME/Videos"
@@ -22,7 +23,8 @@ elif [[ "$(uname)" == "Linux" ]]; then
     SUGGESTIONS="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
     HIGHLIGHTS="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-    # loonix (GNU) date conversion
+    # loonix (GNU) date conversion, midnight to midnight
+    CURRENT_EPOCH=$(date -d "$TODAY" "+%s" 2>/dev/null)
     TARGET_EPOCH=$(date -d "$VACATION_DATE" "+%s" 2>/dev/null)
 fi
 
