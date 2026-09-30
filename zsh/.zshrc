@@ -16,6 +16,18 @@ if [[ "$(uname)" == "Darwin" ]]; then
     CURRENT_EPOCH=$(date -j -f "%Y-%m-%d %H:%M:%S" "$TODAY 00:00:00" "+%s" 2>/dev/null)
     TARGET_EPOCH=$(date -j -f "%Y-%m-%d %H:%M:%S" "$VACATION_DATE 00:00:00" "+%s" 2>/dev/null)
 
+    #bootstrap command
+    bootstrap() {
+        if [[ -z "$1" ]]; then
+            echo "usage: bootstrap HOST"
+            return 1
+        fi
+        # install ghostty terminfo in ~/.terminfo first (plain ssh, no wrapper)
+        infocmp -x xterm-ghostty 2>/dev/null | command ssh "$1" 'tic -x -' 2>/dev/null
+        scp -q "$HOME/.dotfiles/bootstrap.sh" "$1:.bootstrap.sh" \
+            && command ssh -t "$1" 'bash ~/.bootstrap.sh; rm -f ~/.bootstrap.sh'
+    }
+
 elif [[ "$(uname)" == "Linux" ]]; then
     export MOVIE_DIR="$HOME/Videos"
 
@@ -54,6 +66,7 @@ PROMPT="%B%(!.%F{red}.%F{$HOST_COLOR})%n@%m%f %F{blue}%1~%f %#%b "
 
 autoload -Uz compinit
 compinit -C
+(( $+functions[bootstrap] )) && compdef bootstrap=ssh
 
 zstyle ':completion:*' menu select
 
