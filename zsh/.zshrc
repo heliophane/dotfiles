@@ -43,7 +43,14 @@ if [[ -n "$TARGET_EPOCH" ]]; then
 fi
 
 # prompt for loonix bs
-PROMPT="%n@%m %1~ %# "
+# prompt colors: cyan locally, yellow over ssh, red user if root
+if [[ -n "$SSH_CONNECTION" ]]; then
+    HOST_COLOR="yellow"
+else
+    HOST_COLOR="green"
+fi
+
+PROMPT="%(!.%F{red}.%F{$HOST_COLOR})%n@%m%f %F{blue}%1~%f %# "
 
 autoload -Uz compinit
 compinit -C
