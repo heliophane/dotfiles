@@ -1,7 +1,3 @@
-# vacation target date (Format: YYYY-MM-DD)
-VACATION_DATE="2026-10-19"
-TODAY=$(date +%Y-%m-%d)
-
 # platform detection
 if [[ "$(uname)" == "Darwin" ]]; then
     export MOVIE_DIR="$HOME/Movies"
@@ -12,11 +8,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     SUGGESTIONS="$brew_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
     HIGHLIGHTS="$brew_prefix/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-    # macOS (BSD) date conversion
-    CURRENT_EPOCH=$(date -j -f "%Y-%m-%d %H:%M:%S" "$TODAY 00:00:00" "+%s" 2>/dev/null)
-    TARGET_EPOCH=$(date -j -f "%Y-%m-%d %H:%M:%S" "$VACATION_DATE 00:00:00" "+%s" 2>/dev/null)
-
-    #bootstrap command
+    # bootstrap command
     bootstrap() {
         if [[ -z "$1" ]]; then
             echo "usage: bootstrap HOST"
@@ -34,28 +26,10 @@ elif [[ "$(uname)" == "Linux" ]]; then
     # debian package paths
     SUGGESTIONS="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
     HIGHLIGHTS="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
-    # loonix (GNU) date conversion, midnight to midnight
-    CURRENT_EPOCH=$(date -d "$TODAY" "+%s" 2>/dev/null)
-    TARGET_EPOCH=$(date -d "$VACATION_DATE" "+%s" 2>/dev/null)
-fi
-
-# vacation countdown
-if [[ -n "$TARGET_EPOCH" ]]; then
-    DIFF=$((TARGET_EPOCH - CURRENT_EPOCH))
-    if [[ $DIFF -gt 86400 ]]; then
-        DAYS=$((DIFF / 86400))
-        echo "✈️  $DAYS days until vacation!"
-    elif [[ $DIFF -gt 0 ]]; then
-        echo "✈️  Vacation starts tomorrow!"
-    elif [[ $DIFF -gt -86400 ]]; then
-        echo "🌴 Vacation starts today!"
-    fi
-    echo ""
 fi
 
 # prompt for loonix bs
-# prompt colors: cyan locally, yellow over ssh, red user if root
+# prompt colors: green locally, yellow over ssh, red user if root
 if [[ -n "$SSH_CONNECTION" ]]; then
     HOST_COLOR="yellow"
 else
